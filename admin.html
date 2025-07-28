@@ -4,19 +4,19 @@
   <meta charset="UTF-8">
   <title>Admin Panel - Export Orders</title>
   <link rel="stylesheet" href="style.css">
+   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
-  <h2>🔐 Admin Login</h2>
-
-  <div id="adminLogin">
+   <div id="login-box">
+    <h2>🔐 Admin Login</h2>
     <input type="password" id="adminPassword" placeholder="Enter admin password">
     <button onclick="verifyAdmin()">Login</button>
   </div>
 
   <div id="exportSection" style="display:none; margin-top: 20px;">
-    <h3>📁 Export Submissions</h3>
+    <h2>📁 Export Submissions</h2>
     <button class="admin-btn" onclick="exportToExcel()">Download Excel</button>
   </div>
 
