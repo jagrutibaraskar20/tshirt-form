@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel - Export Orders</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+
+  <h2>🔐 Admin Login</h2>
+
+  <div id="adminLogin">
+    <input type="password" id="adminPassword" placeholder="Enter admin password">
+    <button onclick="verifyAdmin()">Login</button>
+  </div>
+
+  <div id="exportSection" style="display:none; margin-top: 20px;">
+    <h3>📁 Export Submissions</h3>
+    <button class="admin-btn" onclick="exportToExcel()">Download Excel</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
