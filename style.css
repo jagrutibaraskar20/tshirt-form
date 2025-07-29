@@ -130,48 +130,76 @@ body {
     }
 
 
-/* exportSection */
-
 #exportSection {
-      background: #fff;
-      padding: 30px 40px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-    }
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;  /* Adjust to fit table comfortably */
+  text-align: center;
+  overflow-x: auto; /* Allow horizontal scroll if needed */
+}
+#exportSection h2 {
+  margin-bottom: 25px;
+  color: #333;
+  font-weight: 600;
+}
+#submissionsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
 
-    #exportSection h2 {
-      margin-bottom: 25px;
-      color: #333;
-      font-weight: 600;
-    }
+#submissionsTable th,
+#submissionsTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-size: 14px;
+  text-align: center;
+  word-wrap: break-word;
+}
 
-    #exportSection button {
-      width: 100%;
-      padding: 12px 15px;
-      margin-bottom: 15px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
+#submissionsTable th {
+  background-color: #f8b500;
+  color: white;
+}
 
-    #exportSection input:focus,
-    #exportSection select:focus {
-      border-color: #f8b500;
-      outline: none;
-    }
+#searchInput {
+  margin-bottom: 15px;
+  padding: 10px;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
 
-    #exportSection button {
-      background-color: #f8b500;
-      color: white;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+.admin-btn {
+  width: 100%;
+  padding: 12px 15px;
+  margin-top: 15px;
+  border-radius: 6px;
+  border: none;
+  background-color: #f8b500;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-    #exportSection button:hover {
-      background-color: #d69200;
-    }
+.admin-btn:hover {
+  background-color: #d69200;
+}
+
+.delete-btn {
+  background-color: red;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: darkred;
+}
