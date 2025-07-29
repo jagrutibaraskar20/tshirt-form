@@ -1,38 +1,35 @@
-// Handle T-Shirt form submission
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("tshirtForm");
+document.getElementById("tshirtForm").addEventListener("submit", function(e) {
+  e.preventDefault(); // Stop the form from reloading the page
 
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault(); // Stop default form submission
+  const name = this.name.value.trim();
+  const email = this.email.value.trim();
+  const mobile = this.mobile.value.trim();
+  const size = this.size.value;
 
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const mobile = form.mobile.value.trim();
-      const size = form.size.value;
-
-      if (!name || !email || !mobile || !size) {
-        alert("Please fill in all fields.");
-        return;
-      }
-
-      // Get existing submissions or initialize
-      const existing = JSON.parse(localStorage.getItem("tshirtSubmissions") || "[]");
-
-      // Add new submission
-      existing.push({ name, email, mobile, size });
-
-      // Save to localStorage
-      localStorage.setItem("tshirtSubmissions", JSON.stringify(existing));
-
-      alert("✅ Submission saved!");
-      form.reset();
-    });
+  if (!name || !email || !mobile || !size) {
+    alert("Please fill in all fields.");
+    return;
   }
+
+  // Get existing submissions
+  const submissions = JSON.parse(localStorage.getItem("tshirtSubmissions") || "[]");
+
+  // Add new submission
+  submissions.push({ name, email, mobile, size });
+
+  // Save to localStorage
+  localStorage.setItem("tshirtSubmissions", JSON.stringify(submissions));
+
+  // Optional: clear form
+  this.reset();
+
+  alert("✅ Order submitted successfully!");
 });
 
 
-// Make sure this is outside any event listener so it's global
+
+
+
 function verifyAdmin() {
   const password = document.getElementById("adminPassword").value;
   const ADMIN_PASSWORD = "admin123";
@@ -40,10 +37,67 @@ function verifyAdmin() {
   if (password === ADMIN_PASSWORD) {
     document.getElementById("login-box").style.display = "none";
     document.getElementById("exportSection").style.display = "block";
+    loadSubmissions();
+
+    // ✅ Attach search event AFTER exportSection is visible
+    document.getElementById("searchInput").addEventListener("input", filterSubmissions);
+
   } else {
     alert("❌ Incorrect password");
   }
+  
 }
+
+function loadSubmissions() {
+  const table = document.getElementById("submissionsTable");
+  const data = JSON.parse(localStorage.getItem("tshirtSubmissions") || "[]");
+
+  // Set table headers
+  table.innerHTML = `
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Mobile</th>
+      <th>Size</th>
+      <th>Action</th>
+    </tr>
+  `;
+
+  data.forEach((entry, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${entry.name}</td>
+      <td>${entry.email}</td>
+      <td>${entry.mobile}</td>
+      <td>${entry.size}</td>
+      <td><button class="delete-btn" onclick="deleteEntry(${index})">Delete</button></td>
+    `;
+    table.appendChild(row);
+  });
+}
+
+
+
+function filterSubmissions() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const rows = document.querySelectorAll("#submissionsTable tr");
+
+  rows.forEach((row, index) => {
+    if (index === 0) return; // skip header row
+    const text = row.innerText.toLowerCase();
+    row.style.display = text.includes(input) ? "" : "none";
+  });
+}
+
+function deleteEntry(index) {
+  if (!confirm("Are you sure you want to delete this entry?")) return;
+
+  const data = JSON.parse(localStorage.getItem("tshirtSubmissions") || "[]");
+  data.splice(index, 1); // remove the entry
+  localStorage.setItem("tshirtSubmissions", JSON.stringify(data));
+  loadSubmissions(); // refresh the table
+}
+
 function exportToExcel() {
   const data = JSON.parse(localStorage.getItem('tshirtSubmissions') || '[]');
 
@@ -65,4 +119,3 @@ function exportToExcel() {
 
   XLSX.writeFile(workbook, "Festival_TShirt_Orders.xlsx");
 }
-
